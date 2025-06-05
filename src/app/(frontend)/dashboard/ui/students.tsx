@@ -1,7 +1,7 @@
-import { Icons } from "@/components/icons";
-import React from "react";
-import { students } from "../mock-data";
-import { Buttons } from "@/components/buttons";
+import { Icons } from '@/components/icons'
+import React from 'react'
+import { students } from '../mock-data'
+import { Buttons } from '@/components/buttons'
 
 export default function Students() {
   return (
@@ -29,11 +29,9 @@ export default function Students() {
                     {prop.online && (
                       <div className="absolute border-2 border-white h-3 w-3 rounded-full bg-[var(--success)] bottom-0 -right-0.5" />
                     )}
-                  </div>{" "}
+                  </div>{' '}
                   <div>
-                    <div className=" text-sm font-medium text-[var(--black)]">
-                      {prop.name}
-                    </div>
+                    <div className=" text-sm font-medium text-[var(--black)]">{prop.name}</div>
                     <div className=" text-xs font-normal text-[#374151]">
                       {prop.subjects?.length} Subjects
                     </div>
@@ -48,8 +46,8 @@ export default function Students() {
                   <div className=" col-span-2 text-center">Score</div>
                 </div>
                 <main className="flex flex-col mb-auto gap-4 mt-4">
-                  {prop.subjects.map((subject) => (
-                    <div className="grid grid-cols-8 gap-3 min-w-full">
+                  {prop.subjects.map((subject, idx) => (
+                    <div key={idx} className="grid grid-cols-8 gap-3 min-w-full">
                       <div className=" col-span-4 flex items-center gap-1.5 text-sm font-normal text-[var(--black)]">
                         <subject.Icon /> {subject.name}
                       </div>
@@ -59,8 +57,8 @@ export default function Students() {
                       <div
                         className={`col-span-2 text-xs font-medium  mx-auto px-1 py-0.5 rounded-sm  flex items-center justify-center ${
                           subject.score < 51
-                            ? "bg-[var(--warning-bg)] text-[var(--warning-text)]"
-                            : "text-[var(--success)] bg-[#E2FBE8]"
+                            ? 'bg-[var(--warning-bg)] text-[var(--warning-text)]'
+                            : 'text-[var(--success)] bg-[#E2FBE8]'
                         }`}
                       >
                         {subject.score}%
@@ -82,20 +80,14 @@ export default function Students() {
             <Icons.passess className="mt-[2.5px]" />
           </div>
           <div>
-            <div className=" text-xs font-semibold text-[var(--passess-text)]">
-              Passes
-            </div>
+            <div className=" text-xs font-semibold text-[var(--passess-text)]">Passes</div>
             <div className=" text-xs font-normal text-[var(--passess-text)]">
               Manage your existing passes, renew them, or buy new ones.
             </div>
           </div>
         </section>
-        <Buttons.primary
-          text="Class Passes"
-          isArrow
-          style={{ marginLeft: "auto" }}
-        />
+        <Buttons.primary text="Class Passes" isArrow style={{ marginLeft: 'auto' }} />
       </footer>
     </article>
-  );
+  )
 }
