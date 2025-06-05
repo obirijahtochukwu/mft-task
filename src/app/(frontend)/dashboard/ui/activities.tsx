@@ -5,7 +5,7 @@ import { Icons } from "@/components/icons";
 import React, { useEffect, useState } from "react";
 import { student, students } from "../mock-data";
 import axios from "axios";
-import {LoadingActivityCard} from "./activities-loader";
+import { LoadingActivityCard } from "./activities-loader";
 
 export default function Activities() {
   const [data, setData] = useState([]);
@@ -62,7 +62,7 @@ export default function Activities() {
                 </div>
                 <aside className="flex flex-col gap-1 w-full relative">
                   <header className="flex items-center gap-1.5">
-                    <div className=" text-sm font-semibold text-[var(--black)]">
+                    <div className=" truncate text-sm font-semibold text-[var(--black)]">
                       {student.name}
                     </div>
                     <div className="text-xs font-normal text-[var(--activity-text)]">
@@ -90,17 +90,18 @@ export default function Activities() {
               </main>
             ))
           ) : (
-                <div className="space-y-1">
-        <h3 className="text-sm font-semibold text-[var(--black)]">
-          No Recent Activity
-        </h3>
-        <p className="text-xs text-[var(--passess-text)] max-w-[200px]">
-          When new activity occurs, <br/>it will appear here
-        </p>
-      </div>
+            <div className="space-y-1">
+              <h3 className="text-sm font-semibold text-[var(--black)]">
+                No Recent Activity
+              </h3>
+              <p className="text-xs text-[var(--passess-text)] max-w-[200px]">
+                When new activity occurs, <br />
+                it will appear here
+              </p>
+            </div>
           )}
         </section>
-        {data?.length &&<Buttons.primary text={"View All"} isArrow />}
+        {data?.length && <Buttons.primary text={"View All"} isArrow />}
       </div>
     </article>
   );
