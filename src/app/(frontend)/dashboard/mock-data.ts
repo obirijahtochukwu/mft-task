@@ -37,3 +37,17 @@ export const students = [
     ],
   },
 ];
+
+export interface student {
+  name: string;
+  image: string;
+  comment: string;
+  online: boolean;
+  date: string;
+  subjects: {
+    name: string;
+    // Icon: (props: IconProps) => JSX.Element;
+    lessons: string;
+    score: number;
+  }[];
+}

@@ -3,9 +3,12 @@ import { Buttons } from "@/components/buttons";
 import { HighlightQuotedText } from "@/components/highlight-text";
 import { Icons } from "@/components/icons";
 import React, { useEffect, useState } from "react";
-import { students } from "../mock-data";
+import { student, students } from "../mock-data";
 import axios from "axios";
 export default function Activities() {
+  const [data, setData] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+
   const [likes, setLikes] = useState([""]);
 
   const handleLike = (student: string) => {
@@ -20,11 +23,12 @@ export default function Activities() {
 
   useEffect(() => {
     axios
-      .get(
-        "https://mft-api-hrl5-pzj53r1qb-obirijahtochukwus-projects.vercel.app/api/students/6840cf17179621b2c390ccf5?depth=2&draft=false&locale=undefined"
-      )
-      .then((r) => console.log(r))
-      .catch((r) => console.log(r));
+      .get("/api/students")
+      .then((res) => {
+        setData(res.data.docs);
+        setIsLoading(false);
+      })
+      .catch((err) => console.log(err));
   }, []);
 
   return (
@@ -39,13 +43,13 @@ export default function Activities() {
       </div>
       <div className="flex flex-col p-5 gap-6">
         <section className="flex flex-col gap-5">
-          {students.map((student, idx) => (
-            <main key={student.name} className="flex gap-2">
+          {data?.map((student: student, idx) => (
+            <main key={idx} className="flex gap-2">
               <div className="relative h-6 min-w-6">
                 <img
                   src={student.image}
                   alt=""
-                  className="h-6 min-w-6 rounded-full"
+                  className="h-6 min-w-6 rounded-full bg-[var(--gray)]"
                 />
                 {student.online && (
                   <div className="absolute border-1 border-white h-2 w-2 rounded-full bg-[var(--success)] bottom-0 -right-0.5" />

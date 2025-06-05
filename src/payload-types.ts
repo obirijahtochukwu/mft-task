@@ -158,16 +158,18 @@ export interface Media {
 export interface Student {
   id: string;
   name: string;
+  /**
+   * Paste image URL here
+   */
   image?: string | null;
   comment?: string | null;
   online?: boolean | null;
   date?: string | null;
   subjects?:
     | {
-        name?: string | null;
+        name: 'math' | 'science' | 'grammer';
         lessons?: string | null;
         score?: number | null;
-        logo?: string | null;
         id?: string | null;
       }[]
     | null;
@@ -284,7 +286,6 @@ export interface StudentsSelect<T extends boolean = true> {
         name?: T;
         lessons?: T;
         score?: T;
-        logo?: T;
         id?: T;
       };
   updatedAt?: T;

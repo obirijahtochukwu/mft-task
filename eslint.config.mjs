@@ -33,6 +33,9 @@ const eslintConfig = [
   {
     ignores: ['.next/'],
   },
+  "rules": {
+    "react/no-unknown-property": ["off"]
+  }
 ]
 
 export default eslintConfig
