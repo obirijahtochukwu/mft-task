@@ -68,7 +68,7 @@ export default function Activities() {
                     <div className="text-xs font-normal text-[var(--activity-text)]">
                       •
                     </div>
-                    <div className=" mr-auto text-xs font-normal text-[var(--activity-text)]">
+                    <div className=" mr-auto text-xs font-normal text-[var(--activity-text)] whitespace-nowrap">
                       {student.date}
                     </div>
                     <Icons.heart
