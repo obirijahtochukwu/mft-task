@@ -5,6 +5,8 @@ import { Icons } from "@/components/icons";
 import React, { useEffect, useState } from "react";
 import { student, students } from "../mock-data";
 import axios from "axios";
+import {LoadingActivityCard} from "./activities-loader";
+
 export default function Activities() {
   const [data, setData] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -26,9 +28,9 @@ export default function Activities() {
       .get("/api/students")
       .then((res) => {
         setData(res.data.docs);
-        setIsLoading(false);
       })
-      .catch((err) => console.log(err));
+      .catch((err) => console.log(err))
+      .finally(() => setIsLoading(false));
   }, []);
 
   return (
@@ -43,47 +45,62 @@ export default function Activities() {
       </div>
       <div className="flex flex-col p-5 gap-6">
         <section className="flex flex-col gap-5">
-          {data?.map((student: student, idx) => (
-            <main key={idx} className="flex gap-2">
-              <div className="relative h-6 min-w-6">
-                <img
-                  src={student.image}
-                  alt=""
-                  className="h-6 min-w-6 rounded-full bg-[var(--gray)]"
-                />
-                {student.online && (
-                  <div className="absolute border-1 border-white h-2 w-2 rounded-full bg-[var(--success)] bottom-0 -right-0.5" />
-                )}
-              </div>
-              <aside className="flex flex-col gap-1 w-full relative">
-                <header className="flex items-center gap-1.5">
-                  <div className=" text-sm font-semibold text-[var(--black)]">
-                    {student.name}
-                  </div>
-                  <div className="text-xs font-normal text-[var(--activity-text)]">
-                    •
-                  </div>
-                  <div className=" mr-auto text-xs font-normal text-[var(--activity-text)]">
-                    {student.date}
-                  </div>
-                  <Icons.heart
-                    onClick={() => handleLike(student.name)}
-                    color={likes.includes(student.name) ? "#CA3A31" : ""}
-                    className=" cursor-pointer"
+          {isLoading ? (
+            [...Array(3)].map((_, i) => <LoadingActivityCard key={i} />)
+          ) : !isLoading && data?.length ? (
+            data?.map((student: student, idx) => (
+              <main key={idx} className="flex gap-2">
+                <div className="relative h-6 min-w-6">
+                  <img
+                    src={student.image}
+                    alt=""
+                    className="h-6 min-w-6 rounded-full bg-[var(--gray)]"
                   />
-                </header>
-                <section className=" pr-7">
-                  <HighlightQuotedText text={student.comment} />
-                </section>
-                {idx == 0 || (
-                  <Buttons.primary text={idx == 2 ? "Message" : "View Score"} />
-                )}
-                <div className=" absolute -left-5 bottom-0 h-[calc(100%-32px)] w-0.5 bg-[#EAECF0]" />
-              </aside>
-            </main>
-          ))}
+                  {student.online && (
+                    <div className="absolute border-1 border-white h-2 w-2 rounded-full bg-[var(--success)] bottom-0 -right-0.5" />
+                  )}
+                </div>
+                <aside className="flex flex-col gap-1 w-full relative">
+                  <header className="flex items-center gap-1.5">
+                    <div className=" text-sm font-semibold text-[var(--black)]">
+                      {student.name}
+                    </div>
+                    <div className="text-xs font-normal text-[var(--activity-text)]">
+                      •
+                    </div>
+                    <div className=" mr-auto text-xs font-normal text-[var(--activity-text)]">
+                      {student.date}
+                    </div>
+                    <Icons.heart
+                      onClick={() => handleLike(student.name)}
+                      color={likes.includes(student.name) ? "#CA3A31" : ""}
+                      className=" cursor-pointer"
+                    />
+                  </header>
+                  <section className=" pr-7">
+                    <HighlightQuotedText text={student.comment} />
+                  </section>
+                  {idx == 0 || (
+                    <Buttons.primary
+                      text={idx == 2 ? "Message" : "View Score"}
+                    />
+                  )}
+                  <div className=" absolute -left-5 bottom-0 h-[calc(100%-32px)] w-0.5 bg-[#EAECF0]" />
+                </aside>
+              </main>
+            ))
+          ) : (
+                <div className="space-y-1">
+        <h3 className="text-sm font-semibold text-[var(--black)]">
+          No Recent Activity
+        </h3>
+        <p className="text-xs text-[var(--passess-text)] max-w-[200px]">
+          When new activity occurs, <br/>it will appear here
+        </p>
+      </div>
+          )}
         </section>
-        <Buttons.primary text={"View All"} isArrow />
+        {data?.length &&<Buttons.primary text={"View All"} isArrow />}
       </div>
     </article>
   );

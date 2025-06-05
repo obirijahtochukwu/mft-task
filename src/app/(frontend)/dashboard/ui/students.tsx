@@ -16,9 +16,9 @@ export default function Students() {
       .get("/api/students")
       .then((res) => {
         setData(res.data.docs);
-        setIsLoading(false);
       })
-      .catch((err) => console.log(err));
+      .catch((err) => console.log(err))
+      .finally(() => setIsLoading(false));
   }, []);
 
   return (
@@ -31,14 +31,23 @@ export default function Students() {
               ({data?.length})
             </span>
           </div>
-          <Buttons.primary text="View All" />
+          {data?.length &&<Buttons.primary text="View All" />}
         </header>
         <section className=" grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-2 xl:grid-cols-3 gap-[18px] sm:gap-5">
-          {isLoading
-            ? [...Array(4)].map((_, i) => <LoadingStudentCard key={i} />)
-            : data.map((prop: student) => (
-                <Student key={prop.name} prop={prop} />
-              ))}
+          {isLoading ? (
+            [...Array(4)].map((_, i) => <LoadingStudentCard key={i} />)
+          ) : !isLoading && data?.length ? (
+            data.map((prop: student) => <Student key={prop.name} prop={prop} />)
+          ) : (
+            <div className="space-y-1">
+              <h3 className="text-sm font-semibold text-[var(--black)]">
+                No student is is registered
+              </h3>
+              <p className="text-xs text-[var(--passess-text)] max-w-[200px]">
+                When new student is created, it will appear here
+              </p>
+            </div>
+          )}
         </section>
       </main>
       <footer className="mt-auto p-3 rounded-md flex max-sm:flex-col gap-2 bg-[var(--passess-bg)]">
