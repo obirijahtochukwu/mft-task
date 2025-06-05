@@ -54,7 +54,7 @@ export default function Activities() {
                   <img
                     src={student.image}
                     alt=""
-                    className="h-6 min-w-6 rounded-full bg-[var(--gray)]"
+                    className="h-6 w-6 max-w-6 rounded-full bg-[var(--gray)]"
                   />
                   {student.online && (
                     <div className="absolute border-1 border-white h-2 w-2 rounded-full bg-[var(--success)] bottom-0 -right-0.5" />
