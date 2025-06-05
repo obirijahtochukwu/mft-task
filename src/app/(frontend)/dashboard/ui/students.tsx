@@ -31,7 +31,7 @@ export default function Students() {
               ({data?.length})
             </span>
           </div>
-          {data?.length &&<Buttons.primary text="View All" />}
+          {data?.length ? <Buttons.primary text="View All" /> : null}
         </header>
         <section className=" grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-2 xl:grid-cols-3 gap-[18px] sm:gap-5">
           {isLoading ? (

@@ -101,7 +101,7 @@ export default function Activities() {
             </div>
           )}
         </section>
-        {data?.length && <Buttons.primary text={"View All"} isArrow />}
+        {data?.length ? <Buttons.primary text={"View All"} isArrow /> : null}
       </div>
     </article>
   );
